@@ -9,7 +9,7 @@ import Sidebar from '../components/Sidebar';
 
 const BlogPage = () => (
 
-  <Layout>
+<Layout>
     <SEO title="Blog" />
     <Row>
         <Col md="8">
@@ -22,7 +22,7 @@ const BlogPage = () => (
                             <Post 
                                 key={node.id}
                                 title={node.frontmatter.title}
-                                path={node.frontmatter.path}
+                                slug={node.fields.path}
                                 author={node.frontmatter.author}
                                 body={node.excerpt}
                                 date={node.frontmatter.date}
@@ -42,7 +42,7 @@ const BlogPage = () => (
             </Sidebar>
         </Col>
         </Row>
-  </Layout>
+</Layout>
 )
 
 const indexQuery = graphql`
@@ -55,7 +55,6 @@ const indexQuery = graphql`
                     title
                     date(formatString: "MMM Do YYYY")
                     author
-                    path
                     tags
                     image {
                         childImageSharp {
@@ -64,6 +63,9 @@ const indexQuery = graphql`
                             }
                         }
                     }
+                }
+                fields{
+                    slug
                 }
             excerpt
             }
