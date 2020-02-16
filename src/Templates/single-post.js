@@ -1,9 +1,8 @@
 import React from 'react'
 import Layout from '../components/layout'
 import SEO from '../components/seo'
-import Sidebar from '../components/Sidebar'
 import Img from 'gatsby-image'
-import { Row, Col, Card, CardBody, CardSubtitle, Badge } from 'reactstrap'
+import { Card, CardBody, CardSubtitle, Badge } from 'reactstrap'
 import { slugify } from '../util/utilityFunctions'
 import { graphql, Link } from 'gatsby'
 
@@ -12,39 +11,32 @@ const singlePost = ({ data }) => {
 
     return (
         <Layout>
-            <SEO title={post.title}></SEO>
-            <h1>{post.title}</h1>
-            <Row>
-                <Col md="8">
-                <Card>
-                    <Img className="card-time-top" fluid=
-                    {post.image.childImageSharp.fluid}/>
-                    <CardBody>
-                        <CardSubtitle>
-                            <span className="text-info">{post.date}</span>by{' '}
-                            <span className="text-info">{post.author}</span>
-                        </CardSubtitle>
-                        <div dangerouslySetInnerHTML = {{ __html: 
-                        data.markdownRemark.html }}/>
-                        <ul className="post-tags">
-                        {post.tags.map(tag => (
-                            <li key={tag}>
-                                <Link to={`/tag/${slugify(tag)}`}>
-                                    <Badge color="primary">
-                                        {tag}
-                                    </Badge>
-                                </Link>
-                            </li>
-                        ))}
-                        </ul>
-                    </CardBody>
-                </Card>
-                </Col>
-                <Col md="4">
-                        <Sidebar />
-                </Col>
-            </Row>
-        </Layout>
+        <SEO title={post.title}></SEO>
+        <h1>{post.title}</h1> 
+            <Card>
+                <Img className="card-time-top" fluid=
+                {post.image.childImageSharp.fluid}/>
+                <CardBody>
+                    <CardSubtitle>
+                    <span className="text-info">{post.date}</span>by{' '}
+                    <span className="text-info">{post.author}</span>
+                    </CardSubtitle>
+                    <div dangerouslySetInnerHTML = {{ __html: 
+                    data.markdownRemark.html }}/>
+                    <ul className="post-tags">
+                    {post.tags.map(tag => (
+                        <li key={tag}>
+                            <Link to={`/tag/${slugify(tag)}`}>
+                                <Badge color="primary">
+                                    {tag}
+                                </Badge>
+                            </Link>
+                        </li>
+                    ))}
+                    </ul>
+                </CardBody>
+            </Card>
+    </Layout>
     )
 }
 

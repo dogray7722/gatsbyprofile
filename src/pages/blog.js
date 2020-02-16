@@ -4,44 +4,32 @@ import Layout from '../components/layout'
 import SEO from '../components/seo'
 import { graphql, StaticQuery } from 'gatsby'
 import Post from '../components/Post'
-import { Row, Col } from 'reactstrap'
-import Sidebar from '../components/Sidebar';
 
 const BlogPage = () => (
 
-<Layout>
+<Layout pageTitle="New in My World">
     <SEO title="Blog" />
-    <Row>
-        <Col md="8">
-            <StaticQuery 
-                query={indexQuery}
-                render = { data => {
-                return (
-                    <div>
-                        {data.allMarkdownRemark.edges.map(({ node }) => ( 
-                            <Post 
-                                key={node.id}
-                                title={node.frontmatter.title}
-                                slug={node.fields.path}
-                                author={node.frontmatter.author}
-                                body={node.excerpt}
-                                date={node.frontmatter.date}
-                                fluid=              {node.frontmatter.image.childImageSharp.fluid}
-                                tags={node.frontmatter.tags}
-                            />
-                        ))}
-                    </div>
-                    )
-                }}
-            />
-        </Col>
-    
-        <Col md="4">
-            <Sidebar>
-
-            </Sidebar>
-        </Col>
-        </Row>
+        <StaticQuery 
+            query={indexQuery}
+            render = { data => {
+            return (
+                <div>
+                    {data.allMarkdownRemark.edges.map(({ node }) => ( 
+                        <Post 
+                            key={node.id}
+                            title={node.frontmatter.title}
+                            slug={node.fields.slug}
+                            author={node.frontmatter.author}
+                            body={node.excerpt}
+                            date={node.frontmatter.date}
+                            fluid=              {node.frontmatter.image.childImageSharp.fluid}
+                            tags={node.frontmatter.tags}
+                        />
+                    ))}
+                </div>
+                )
+            }}
+        />
 </Layout>
 )
 
