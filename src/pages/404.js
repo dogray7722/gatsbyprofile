@@ -9,7 +9,6 @@ const NotFoundPage = () => (
     <Link to={"/"} className="btn btn-primary text-uppercase">
       Go Home
     </Link>
-    
   </Layout>
 )
 
