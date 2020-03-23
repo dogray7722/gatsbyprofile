@@ -2,23 +2,42 @@ import React from 'react'
 
 import Layout from  '../components/layout'
 import SEO from '../components/seo'
+import { Row, Col } from 'reactstrap'
+import { graphql } from 'gatsby'
+import Img from 'gatsby-image'
 
-const AboutPage = () => (
+const AboutPage = ({ data }) => (
     <Layout pageTitle="About Dave">
         <SEO title="About"></SEO>
-        <div>
-            <p>Tempor ipsum ut ad cupidatat mollit anim nostrud enim ipsum anim cupidatat ex. Magna anim aliquip occaecat consectetur esse ipsum enim voluptate proident nulla. Lorem consectetur pariatur adipisicing sunt. Irure do deserunt eiusmod sint commodo. Occaecat nisi nisi adipisicing consequat elit ut esse nisi sunt quis quis duis. Anim aute tempor cillum in dolore ipsum id officia. Cupidatat laboris culpa qui esse ullamco.</p>
+        <Row>
+            <Col md="6">
+            <div>
+            <p>An experienced and talented voice actor, Dave Gray has quite the special set of skills when it comes creating high quality voice over recordings.  Having voiced a number of works for the Colorado Society Talking Book Library, Dave is passionate about creating quality reads that connect with the audience emotionally, and which provide a lasting impact on listeners.  Having narrated both fiction and non-fiction works, Dave is a consummate professional.  He takes pride in his reads and works with the content creator to really focus on the intent of every piece.</p>
 
-            <p>Minim aute deserunt eiusmod qui nostrud id elit commodo eu sint velit voluptate. Velit sint incididunt ipsum eiusmod est laboris fugiat duis. Ea minim nostrud aliqua ullamco incididunt laborum cillum adipisicing velit velit</p>
-
-            <p>Nisi laboris qui excepteur mollit non velit ullamco veniam qui quis ad cupidatat incididunt aliqua. Id dolore sit ex velit aliqua laborum et cupidatat ex adipisicing excepteur in. Lorem incididunt nisi excepteur voluptate pariatur consectetur ex dolor pariatur et. Elit tempor voluptate enim incididunt irure cillum non exercitation laborum.</p>
-
-            <p>Occaecat pariatur labore esse sunt quis in voluptate ipsum dolor nostrud non. Ex labore commodo magna elit fugiat minim do esse. Lorem non culpa labore aliqua enim culpa aute id. Nisi magna ipsum reprehenderit sint esse. Adipisicing eiusmod minim nostrud pariatur sint anim.</p>
-
-            <p>Consequat qui minim commodo in aute sint incididunt culpa quis quis qui. Eiusmod do laboris nulla adipisicing ut. Deserunt incididunt non culpa culpa ad non aute aute ipsum laboris nostrud laboris. Irure reprehenderit irure culpa cupidatat. Est consequat adipisicing ipsum adipisicing reprehenderit sunt enim ad eu. Esse ad anim duis occaecat pariatur exercitation nisi est qui ipsum dolor. Occaecat reprehenderit irure incididunt aute nulla do Lorem.</p>
-            
-        </div>
+            </div>
+            </Col>
+            <Col md="6">
+                <Img fluid={data.file.childImageSharp.fluid}></Img>
+            </Col>
+        </Row>
+        <Row>
+            <Col style={{paddingTop: '10px'}}md="12">
+            <p>Dave is available for work in whatever niche you may require whether that be in Audio Books, online training, character voice for animations, or reading commercial copy.  If you find Dave Gray's voice work would add value to your next audio project, and you most undoubtedly will, feel free to reach out via the contact page.  I can promise you, you won't regret it!</p>
+            </Col>
+        </Row>
     </Layout>
 )
+
+export const ImageQuery = graphql`
+query {
+    file(relativePath: { eq: "profile_pic.jpg"}) {
+        childImageSharp {
+            fluid(maxWidth: 800) {
+                ...GatsbyImageSharpFluid
+            }
+        }
+    }
+}
+`
 
 export default AboutPage
