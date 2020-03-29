@@ -7,7 +7,7 @@ import { graphql } from 'gatsby'
 import Img from 'gatsby-image'
 
 const AboutPage = ({ data }) => (
-    <Layout pageTitle="About Dave">
+    <Layout pageTitle="About">
         <SEO title="About"></SEO>
         <Row>
             <Col md="6">

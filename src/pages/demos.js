@@ -4,7 +4,7 @@ import Layout from  '../components/layout'
 import SEO from '../components/seo'
 
 const DemosPage = () => (
-    <Layout pageTitle="Dave's Demos">
+    <Layout pageTitle="Demos">
         <SEO title="Demos"></SEO>
     </Layout>
 )
