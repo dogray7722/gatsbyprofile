@@ -1,7 +1,13 @@
+const dotenv = require('dotenv')
+
+if (process.env.NODE_ENV !== 'production') {
+	dotenv.config()
+}
+
 module.exports = {
   siteMetadata: {
     title: `Dave Gray`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
+    description: `VoiceOver Profile Page for Dave Gray`,
     author: `@gatsbyjs`,
   },
   plugins: [
@@ -23,6 +29,13 @@ module.exports = {
       options: {
         name: `pages`,
         path: `${__dirname}/src/pages`,
+      },
+    },
+    {
+      resolve: `gatsby-source-contentful`,
+        options: {
+          spaceId: `410ddurpn9g0`,
+          accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
       },
     },
     {
