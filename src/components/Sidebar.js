@@ -27,17 +27,16 @@ const Sidebar = () => (
                 query={sidebarQuery} 
                 render={(data) => (
                     <div>
-                        {data.allMarkdownRemark.edges.map(({ node }) => (
-                        <Card key={node.id}>
-                            <Link to={node.fields.slug}>
-                            
+                        {data.allContentfulBlogPost.edges.map(({ node }) => (
+                        <Card>
+                            <Link to={node.slug}>
                             <Img className="card-image-top"
-                                fluid={node.frontmatter.image.childImageSharp.fluid}/>
+                                fluid={node.image.fluid}/>
                             </Link>
                         <CardBody>
                             <CardTitle>
-                                <Link to={node.fields.slug}>
-                                    {node.frontmatter.title}
+                                <Link to={node.slug}>
+                                    {node.title}
                                 </Link>
                             </CardTitle>
                         </CardBody>
@@ -50,33 +49,24 @@ const Sidebar = () => (
     </div>
 )
 
+
+//TODO Figure out how to sort: ( sort: { fields: [frontmatter___date], order: DESC} limit: 3 )
     const sidebarQuery = graphql`
         query sidebarQuery {
-            allMarkdownRemark(
-                sort: { fields: [frontmatter___date], order: DESC}
-                limit: 3
-            ) {
+            allContentfulBlogPost {
             edges{
                 node{
-                    id
-                    frontmatter{
-                        title 
-                        image{
-                            childImageSharp{
-                                fluid(maxWidth: 300){
-                                    ...GatsbyImageSharpFluid
-                                }
-                            }
-                        }
-                    }
-                    fields{
-                        slug
+                    title
+                    slug 
+                    image {
+                        fluid{
+                        ...GatsbyContentfulFluid
+                       }
                     }
                 }
             }
         }
     }
-            
 `
 
 

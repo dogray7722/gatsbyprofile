@@ -9,9 +9,8 @@ import {
     Badge
 } from "reactstrap"
 import Img from 'gatsby-image'
-import { slugify } from "../util/utilityFunctions"
 
-const post = ( { title, author, slug, date, body, fluid, tags} ) => {
+const post = ( { id, title, author, slug, date, body, fluid, tags} ) => {
     return (
         <Card>
             <Link to={slug}>
@@ -30,11 +29,11 @@ const post = ( { title, author, slug, date, body, fluid, tags} ) => {
             <CardText>{body}</CardText>
             <ul className="post-tags">
                 {tags.map(tag => (
-                    <li key={tag}>
-                    <Link to={`/tag/${slugify(tag)}`}>
-                    <Badge color="primary" className="text-uppercase">
-                        {tag}
-                    </Badge>
+                    <li key={id}>
+                    <Link to={`/tag/${slug}`}>
+                        <Badge color="primary" className="text-uppercase">
+                            {tag}
+                        </Badge>
                     </Link>
                     </li>
                 ))}

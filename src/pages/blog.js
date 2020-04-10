@@ -4,6 +4,7 @@ import Layout from '../components/layout'
 import SEO from '../components/seo'
 import { graphql, StaticQuery } from 'gatsby'
 import Post from '../components/Post'
+import {documentToReactComponents} from '@contentful/rich-text-react-renderer'
 
 const BlogPage = () => (
 
@@ -14,16 +15,16 @@ const BlogPage = () => (
             render = { data => {
             return (
                 <div>
-                    {data.allMarkdownRemark.edges.map(({ node }) => ( 
+                    {data.allContentfulBlogPost.edges.map(({ node }) => ( 
                         <Post 
                             key={node.id}
-                            title={node.frontmatter.title}
-                            slug={node.fields.slug}
-                            author={node.frontmatter.author}
-                            body={node.excerpt}
-                            date={node.frontmatter.date}
-                            fluid=              {node.frontmatter.image.childImageSharp.fluid}
-                            tags={node.frontmatter.tags}
+                            title={node.title}
+                            slug={node.slug}
+                            author={node.author}
+                            body={documentToReactComponents(node.body.json)}
+                            date={node.date}
+                            fluid={node.image.fluid}
+                            tags={node.tags}
                         />
                     ))}
                 </div>
@@ -33,29 +34,25 @@ const BlogPage = () => (
 </Layout>
 )
 
+//figure out how to sort contentful blog posts: (sort: {fields: [node___date], order: DESC})
 const indexQuery = graphql`
     query newQuery {
-    allMarkdownRemark(sort: {fields: [frontmatter___date], order: DESC}) {
+    allContentfulBlogPost {
         edges{
             node{
                 id
-                frontmatter{
-                    title
-                    date(formatString: "MMM Do YYYY")
-                    author
-                    tags
-                    image {
-                        childImageSharp {
-                            fluid(maxWidth: 800) {
-                                ...GatsbyImageSharpFluid
-                            }
-                        }
+                title
+                slug
+                tags
+                date(formatString: "MMM Do YYYY")
+                image {
+                    fluid{
+                        ...GatsbyContentfulFluid
                     }
                 }
-                fields{
-                    slug
+                body {
+                    json
                 }
-            excerpt
             }
         }
     }
