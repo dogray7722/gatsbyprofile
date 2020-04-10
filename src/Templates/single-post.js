@@ -25,7 +25,7 @@ const singlePost = ({ data }) => {
                     <ul className="post-tags">
                     {post.tags.map(tag => (
                         <li key={tag}>
-                            <Link to={post.tag}>
+                            <Link to={`tag/${tag}`}>
                                 <Badge color="primary">
                                     {tag}
                                 </Badge>

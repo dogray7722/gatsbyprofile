@@ -28,18 +28,18 @@ const Sidebar = () => (
                 render={(data) => (
                     <div>
                         {data.allContentfulBlogPost.edges.map(({ node }) => (
-                        <Card>
+                        <Card key={node.id}>
                             <Link to={node.slug}>
-                            <Img className="card-image-top"
-                                fluid={node.image.fluid}/>
+                                <Img className="card-image-top"
+                                    fluid={node.image.fluid}/>
                             </Link>
-                        <CardBody>
-                            <CardTitle>
-                                <Link to={node.slug}>
-                                    {node.title}
-                                </Link>
-                            </CardTitle>
-                        </CardBody>
+                            <CardBody>
+                                <CardTitle>
+                                    <Link to={node.slug}>
+                                        {node.title}
+                                    </Link>
+                                </CardTitle>
+                            </CardBody>
                         </Card>
                         ))}
                     </div>) 
@@ -49,11 +49,9 @@ const Sidebar = () => (
     </div>
 )
 
-
-//TODO Figure out how to sort: ( sort: { fields: [frontmatter___date], order: DESC} limit: 3 )
     const sidebarQuery = graphql`
         query sidebarQuery {
-            allContentfulBlogPost {
+            allContentfulBlogPost(sort: {fields: date, order: DESC}, limit: 3) {
             edges{
                 node{
                     title

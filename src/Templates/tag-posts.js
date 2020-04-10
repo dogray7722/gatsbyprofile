@@ -30,6 +30,7 @@ export const tagQuery = graphql`
     query($tag: String!){
         allContentfulBlogPost(
             filter: { tags: { in: [$tag]}}
+            sort: {fields: date, order: DESC}
         ){
             edges{
                 node{

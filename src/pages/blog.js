@@ -34,10 +34,9 @@ const BlogPage = () => (
 </Layout>
 )
 
-//figure out how to sort contentful blog posts: (sort: {fields: [node___date], order: DESC})
 const indexQuery = graphql`
     query newQuery {
-    allContentfulBlogPost {
+    allContentfulBlogPost(sort: {fields: date, order: DESC}) {
         edges{
             node{
                 id
