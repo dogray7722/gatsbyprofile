@@ -2,7 +2,8 @@ import React from 'react'
 import Layout from '../components/layout'
 import SEO from '../components/seo'
 import Img from 'gatsby-image'
-import { Card, CardBody, CardSubtitle, Badge } from 'reactstrap'
+import { Card, CardBody, CardSubtitle, CardText, Badge } from 'reactstrap'
+import {documentToReactComponents} from '@contentful/rich-text-react-renderer'
 import { graphql, Link } from 'gatsby'
 
 const singlePost = ({ data }) => {
@@ -20,10 +21,11 @@ const singlePost = ({ data }) => {
                     <span className="text-info">{post.date}</span>{' '}by{' '}
                     <span className="text-info">{post.author}</span>
                     </CardSubtitle>
+                    <CardText>{documentToReactComponents(post.body.json)}</CardText>
                     <ul className="post-tags">
                     {post.tags.map(tag => (
                         <li key={tag}>
-                            <Link to={post.slug}>
+                            <Link to={post.tag}>
                                 <Badge color="primary">
                                     {tag}
                                 </Badge>
@@ -49,6 +51,9 @@ query blogPostBySlug($slug: String!){
                 ...GatsbyContentfulFluid
                 }
             }
+        body{
+            json
+        }
         }
     }
 `
