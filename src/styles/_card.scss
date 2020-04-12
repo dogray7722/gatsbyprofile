@@ -1,6 +1,21 @@
 .card {
   margin-bottom: 30px;
 }
+
+.post-links {
+  a {
+    text-decoration: underline;
+    color: #008000;
+    &:hover {
+      color: #800D46;
+    }
+  }
+}
+
+ol {
+  line-height: .5;
+}
+
 ul.post-tags {
   padding: 0;
   display: inline-flex;
