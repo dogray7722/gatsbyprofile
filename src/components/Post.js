@@ -19,7 +19,7 @@ const post = ( { id, title, author, slug, date, body, fluid, tags} ) => {
             <CardBody>
             <Link to={slug}>
             <CardTitle>
-                {title}
+                <h2>{title}</h2>
             </CardTitle>
             </Link>
             <CardSubtitle>
