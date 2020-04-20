@@ -15,16 +15,16 @@ const BlogPage = () => (
             render = { data => {
             return (
                 <div>
-                    {data.allContentfulBlogPost.edges.map(({ node }) => ( 
+                    {data.allContentfulBlogPost.nodes.map(({ id, title, slug, author, body, date, image, tags }) => ( 
                         <Post 
-                            key={node.id}
-                            title={node.title}
-                            slug={node.slug}
-                            author={node.author}
-                            body={documentToReactComponents(node.body.json)}
-                            date={node.date}
-                            fluid={node.image.fluid}
-                            tags={node.tags}
+                            key={id}
+                            title={title}
+                            slug={slug}
+                            author={author}
+                            body={documentToReactComponents(body.json)}
+                            date={date}
+                            fluid={image.fluid}
+                            tags={tags}
                         />
                     ))}
                 </div>
@@ -37,21 +37,19 @@ const BlogPage = () => (
 const indexQuery = graphql`
     query newQuery {
     allContentfulBlogPost(sort: {fields: date, order: DESC}) {
-        edges{
-            node{
-                id
-                title
-                slug
-                tags
-                date(formatString: "MMM Do YYYY")
-                image {
-                    fluid{
-                        ...GatsbyContentfulFluid
-                    }
+        nodes{
+            id
+            title
+            slug
+            tags
+            date(formatString: "MMM Do YYYY")
+            image {
+                fluid{
+                    ...GatsbyContentfulFluid
                 }
-                body {
-                    json
-                }
+            }
+            body {
+                json
             }
         }
     }

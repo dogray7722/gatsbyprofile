@@ -51,9 +51,9 @@ query blogPostBySlug($slug: String!){
                 ...GatsbyContentfulFluid
                 }
             }
-        body{
-            json
-        }
+            body{
+                json
+            }
         }
     }
 `

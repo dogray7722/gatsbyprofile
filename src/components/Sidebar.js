@@ -27,16 +27,16 @@ const Sidebar = () => (
                 query={sidebarQuery} 
                 render={(data) => (
                     <div>
-                        {data.allContentfulBlogPost.edges.map(({ node }) => (
-                        <Card key={node.id}>
-                            <Link to={node.slug}>
+                        {data.allContentfulBlogPost.nodes.map(({ id, slug, image, title }) => (
+                        <Card key={id}>
+                            <Link to={slug}>
                                 <Img className="card-image-top"
-                                    fluid={node.image.fluid}/>
+                                    fluid={image.fluid}/>
                             </Link>
                             <CardBody>
                                 <CardTitle>
-                                    <Link to={node.slug}>
-                                        {node.title}
+                                    <Link to={slug}>
+                                        {title}
                                     </Link>
                                 </CardTitle>
                             </CardBody>
@@ -52,14 +52,12 @@ const Sidebar = () => (
     const sidebarQuery = graphql`
         query sidebarQuery {
             allContentfulBlogPost(sort: {fields: date, order: DESC}, limit: 3) {
-            edges{
-                node{
-                    title
-                    slug 
-                    image {
-                        fluid{
-                        ...GatsbyContentfulFluid
-                       }
+            nodes{
+                title
+                slug 
+                image {
+                    fluid{
+                    ...GatsbyContentfulFluid
                     }
                 }
             }
