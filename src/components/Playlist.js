@@ -16,7 +16,7 @@ const Playlist = () => {
                     {songs.map(song => (
                         <li onClick = {
                             () => selectTrack(song)
-                        }>
+                        }><h1>{song}</h1>
 
                         </li>
                     ))}
