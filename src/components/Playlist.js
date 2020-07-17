@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { graphql } from 'gatsby'
+import { graphql, StaticQuery } from 'gatsby'
 
-const Playlist = ({ data }) => {
-  const { markdownRemark: track } = data
+const Playlist = () => {
+
   const [songTitle, setSongTitle] = useState('Song Title 1')
 
   const selectTrack = newTrack => {
@@ -11,25 +11,35 @@ const Playlist = ({ data }) => {
 
   return (
     <>
-      <div>
-        <ul style={{ listStyle: 'none' }}>
-          {/* {songs.map(song => (
-            <li onClick={() => selectTrack(song)}>
-              <h1>{song}</h1>
-            </li>
-          ))} */}
-        </ul>
-      </div>
+      <StaticQuery
+        query={trackQuery}
+        render={data => (
+          <div>
+            {data.allMarkdownRemark.nodes.map(({ frontmatter }) => (
+              <ul>
+                <li key={frontmatter.id}>
+                  <h1>{frontmatter.title}</h1>
+                </li>
+              </ul>
+            ))}
+          </div>
+        )}
+      />
     </>
   )
 }
 
 export const trackQuery = graphql`
-  query AudioTrackByPath($path: String!) {
-    markdownRemark(frontmatter: { path: { eq: $path } }) {
-      html
-      frontmatter {
-        title
+  query TrackByPath {
+    allMarkdownRemark {
+      nodes {
+        frontmatter {
+          title
+          duration
+          path {
+            id
+          }
+        }
       }
     }
   }

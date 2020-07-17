@@ -12,7 +12,6 @@ module.exports = {
   },
   plugins: [
     `gatsby-transformer-sharp`,
-    `gatsby-transformer-remark`,
     `gatsby-plugin-sharp`,
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-sass`,  
@@ -23,6 +22,9 @@ module.exports = {
         name: `assets`,
         path: `${__dirname}/src/assets`,
       },
+    },
+    {
+      resolve: `gatsby-transformer-remark`
     },
     {
       resolve: `gatsby-source-filesystem`,
@@ -47,7 +49,7 @@ module.exports = {
         background_color: `#663399`,
         theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `src/assets/images/microphone.png`
+        icon: `src/assets/microphone.png`
       }
     },
     {
